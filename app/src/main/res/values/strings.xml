@@ -5,4 +5,11 @@
     <string name="status_exception_error">%1$s (status %2$d). %3$s.</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
+    <string name="main_main">Main</string>
+    <string name="main_roster">Roster</string>
+    <string name="main_battle">Battle</string>
+    <string name="main_gacha">Gacha</string>
+    <string name="main_shop">Shop</string>
+    <string name="roster_details">Details</string>
+    <string name="misc_connecting">Connecting...</string>
 </resources>
