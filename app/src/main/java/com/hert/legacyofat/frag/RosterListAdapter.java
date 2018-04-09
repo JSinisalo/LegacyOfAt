@@ -1,6 +1,7 @@
 package com.hert.legacyofat.frag;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,5 +95,15 @@ public class RosterListAdapter extends RecyclerView.Adapter<RosterListAdapter.Vi
     public interface ItemClickListener {
 
         void onItemClick(View view, int position);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+
+        mData = null;
+        mClickListener = null;
+        mInflater = null;
+
+        super.onDetachedFromRecyclerView(recyclerView);
     }
 }

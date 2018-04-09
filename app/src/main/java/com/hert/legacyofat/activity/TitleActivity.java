@@ -38,7 +38,6 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
     private static final int RC_SIGN_IN = 9001;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

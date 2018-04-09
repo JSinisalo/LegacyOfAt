@@ -21,6 +21,7 @@ import com.hert.legacyofat.frag.BattleFragment;
 import com.hert.legacyofat.frag.GachaFragment;
 import com.hert.legacyofat.frag.MainFragment;
 import com.hert.legacyofat.frag.RosterFragment;
+import com.hert.legacyofat.frag.RosterListFragment;
 import com.hert.legacyofat.frag.ShopFragment;
 import com.hert.legacyofat.misc.Debug;
 import com.hert.legacyofat.popup.PopupError;
@@ -33,9 +34,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Fr
 
     private static final int NUM_PAGES = 5;
     private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
 
     private int selectedChara = -1;
+
+    //TODO: this is a bit shit
+    private RosterListFragment rosterListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Fr
         setContentView(R.layout.activity_main);
 
         mPager = (ViewPager) findViewById(R.id.contentPager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOffscreenPageLimit(5);
 
         setTopText();
     }
@@ -134,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Fr
                 Guser.setFullData(result);
 
                 setTopText();
+
+                rosterListFragment.updateData();
 
                 break;
 
@@ -254,4 +260,21 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse, Fr
     }
 
     public void setTeamName(String name) { ((TextView)findViewById(R.id.mainTeam)).setText(name); }
+
+    public RosterListFragment getRosterListFragment() {
+        return rosterListFragment;
+    }
+
+    public void setRosterListFragment(RosterListFragment rosterListFragment) {
+        this.rosterListFragment = rosterListFragment;
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        mPager = null;
+        rosterListFragment = null;
+
+        super.onDestroy();
+    }
 }

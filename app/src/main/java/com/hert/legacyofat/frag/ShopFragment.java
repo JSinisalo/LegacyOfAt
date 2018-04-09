@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
-import com.hert.legacyofat.activity.FragmentResponse;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created by juhos on 20.3.2018.
@@ -16,14 +17,10 @@ import com.hert.legacyofat.activity.FragmentResponse;
 
 public class ShopFragment extends Fragment {
 
-    private FragmentResponse callback;
-
     @Override
     public void onCreate(Bundle b) {
 
         super.onCreate(b);
-
-        callback = (FragmentResponse) getActivity();
     }
 
     @Nullable
@@ -33,5 +30,12 @@ public class ShopFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_shop, container, false);
 
         return v;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

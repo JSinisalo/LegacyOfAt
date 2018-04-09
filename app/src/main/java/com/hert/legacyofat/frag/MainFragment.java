@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
 import com.hert.legacyofat.backend.Guser;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONException;
 
@@ -36,5 +38,12 @@ public class MainFragment extends Fragment {
         }
 
         return v;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

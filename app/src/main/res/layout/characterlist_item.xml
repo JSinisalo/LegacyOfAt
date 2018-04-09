@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="110dp"
+    android:orientation="horizontal"
+    android:screenOrientation="landscape">
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:id="@+id/sampleText"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:background="@color/colorAccent"/>
+
+</LinearLayout>

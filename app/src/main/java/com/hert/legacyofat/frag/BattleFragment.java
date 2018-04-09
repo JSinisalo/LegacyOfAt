@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
 import com.hert.legacyofat.activity.AsyncResponse;
 import com.hert.legacyofat.activity.FragmentResponse;
 import com.hert.legacyofat.async.CallBackendTask;
 import com.hert.legacyofat.backend.Guser;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created by juhos on 20.3.2018.
@@ -63,5 +65,12 @@ public class BattleFragment extends Fragment implements AsyncResponse, View.OnCl
     public void processFinish(int id, String result) {
 
         callback.processFinish(id, result);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

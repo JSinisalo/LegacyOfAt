@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
 import com.hert.legacyofat.activity.AsyncResponse;
 import com.hert.legacyofat.activity.FragmentResponse;
 import com.hert.legacyofat.backend.Guser;
 import com.hert.legacyofat.popup.PopupError;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created by juhos on 20.3.2018.
@@ -21,14 +23,10 @@ import com.hert.legacyofat.popup.PopupError;
 
 public class GachaFragment extends Fragment implements AsyncResponse, PopupError.PopupErrorListener, View.OnClickListener {
 
-    private FragmentResponse callback;
-
     @Override
     public void onCreate(Bundle b) {
 
         super.onCreate(b);
-
-        callback = (FragmentResponse) getActivity();
     }
 
     @Nullable
@@ -86,23 +84,30 @@ public class GachaFragment extends Fragment implements AsyncResponse, PopupError
     @Override
     public void showConnectingWidget() {
 
-        callback.showConnectingWidget();
+        ((FragmentResponse)getActivity()).showConnectingWidget();
     }
 
     @Override
     public void hideConnectingWidget() {
 
-        callback.hideConnectingWidget();
+        ((FragmentResponse)getActivity()).hideConnectingWidget();
     }
 
     @Override
     public void processFinish(int id, String result) {
 
-        callback.processFinish(id, result);
+        ((FragmentResponse)getActivity()).processFinish(id, result);
     }
 
     @Override
     public void onDialogClose(DialogFragment dialog, int id) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 }

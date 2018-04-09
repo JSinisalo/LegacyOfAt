@@ -34,5 +34,7 @@ public abstract class GenericNetworkTask extends AsyncTask<String, Integer, Stri
 
         activity.hideConnectingWidget();
         activity.processFinish(id, result);
+
+        activity = null;
     }
 }

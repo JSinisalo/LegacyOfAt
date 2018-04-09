@@ -1,5 +1,6 @@
 package com.hert.legacyofat.frag;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,12 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
 import com.hert.legacyofat.activity.AsyncResponse;
 import com.hert.legacyofat.activity.FragmentResponse;
 import com.hert.legacyofat.activity.MainActivity;
 import com.hert.legacyofat.async.CallBackendTask;
 import com.hert.legacyofat.backend.Guser;
+import com.hert.legacyofat.misc.Debug;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,31 +37,22 @@ import java.util.List;
  */
 
 public class RosterListFragment extends Fragment implements AsyncResponse, RosterListAdapter.ItemClickListener, View.OnClickListener {
-
-    private FragmentResponse callback;
+    
     private RosterListAdapter adapter;
 
     private static final int NUM_PAGES = 10;
-    private ViewPager mPager;
     private TeamPagerAdapter mPagerAdapter;
-
-    private RecyclerView recyclerView;
-
+    
     private List<String> data = new ArrayList<>();
 
     private long dataChanged = 0;
     
-    private MainActivity mainActivity;
-
     private int selectedTeamSlot = 0;
 
     @Override
     public void onCreate(Bundle b) {
 
         super.onCreate(b);
-
-        callback = (FragmentResponse) getActivity();
-        mainActivity = ((MainActivity)getActivity());
     }
 
     private String getTeamName(int idx) {
@@ -67,43 +62,39 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
 
     public void onClick(View v) {
 
-        int c = mPager.getCurrentItem();
+        if(getView() != null) {
 
-        switch(v.getId()) {
+            int c = ((ViewPager)getView().findViewById(R.id.teamPager)).getCurrentItem();
 
-            case R.id.teamRight:
+            switch(v.getId()) {
 
-                if(mPagerAdapter.getItemPosition(c) == 9)
-                    mPager.setCurrentItem(0);
-                else
-                    mPager.setCurrentItem(c + 1);
+                case R.id.teamRight:
+
+                    if(mPagerAdapter.getItemPosition(c) == 9)
+                        ((ViewPager)getView().findViewById(R.id.teamPager)).setCurrentItem(0);
+                    else
+                        ((ViewPager)getView().findViewById(R.id.teamPager)).setCurrentItem(c + 1);
 
 
-                break;
+                    break;
 
-            case R.id.teamLeft:
+                case R.id.teamLeft:
 
-                if(mPagerAdapter.getItemPosition(c) == 0)
-                    mPager.setCurrentItem(9);
-                else
-                    mPager.setCurrentItem(c - 1);
+                    if(mPagerAdapter.getItemPosition(c) == 0)
+                        ((ViewPager)getView().findViewById(R.id.teamPager)).setCurrentItem(9);
+                    else
+                        ((ViewPager)getView().findViewById(R.id.teamPager)).setCurrentItem(c - 1);
 
-                break;
+                    break;
 
-            default:
+                default:
 
-                break;
+                    break;
+            }
+
+            c = ((ViewPager)getView().findViewById(R.id.teamPager)).getCurrentItem();
+            ((MainActivity)getActivity()).setTeamName(getTeamName(c));
         }
-
-        c = mPager.getCurrentItem();
-        mainActivity.setTeamName(getTeamName(c));
-
-        /*
-        RosterTeamFragment f = (RosterTeamFragment)mPagerAdapter.getRegisteredFragment(c);
-
-        if(f != null)
-            f.setSlotTexts(adapter.getItem(this.teams[c][0]),adapter.getItem(this.teams[c][1]),adapter.getItem(this.teams[c][2]),adapter.getItem(this.teams[c][3]));
-            */
     }
 
     @Nullable
@@ -111,19 +102,17 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_roster_roster, container, false);
-
-        recyclerView = (RecyclerView)v.findViewById(R.id.rosterList);
-
+        
         int numberOfColumns = 5;
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), numberOfColumns));
+        ((RecyclerView)v.findViewById(R.id.rosterList)).setLayoutManager(new GridLayoutManager(this.getContext(), numberOfColumns));
         adapter = new RosterListAdapter(this.getContext(), data);
         adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        ((RecyclerView)v.findViewById(R.id.rosterList)).setAdapter(adapter);
 
-        mPager = (ViewPager) v.findViewById(R.id.teamPager);
         mPagerAdapter = new RosterListFragment.TeamPagerAdapter(getChildFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
+        ((ViewPager)v.findViewById(R.id.teamPager)).setAdapter(mPagerAdapter);
+        ((ViewPager)v.findViewById(R.id.teamPager)).setOffscreenPageLimit(10);
 
         ((Button)v.findViewById(R.id.teamLeft)).setOnClickListener(this);
         ((Button)v.findViewById(R.id.teamRight)).setOnClickListener(this);
@@ -132,34 +121,16 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
-        super.setUserVisibleHint(isVisibleToUser);
+        super.onActivityCreated(savedInstanceState);
 
-        if(getView() != null && isVisibleToUser) {
+        ((MainActivity)getActivity()).setRosterListFragment(this);
 
-             updateData();
-        }
-
-        if(recyclerView != null && recyclerView.getChildCount() > 0 && mainActivity.getSelectedChara() != -1)
-            getView(mainActivity.getSelectedChara()).setBackgroundColor(Color.argb(255, 0, 0, 0));
-
-        int c = 0;
-
-        if(mPager != null) {
-
-            c = mPager.getCurrentItem();
-
-            /*
-            RosterTeamFragment f = (RosterTeamFragment)mPagerAdapter.getRegisteredFragment(c);
-
-            if(f != null)
-                f.setSlotTexts(adapter.getItem(this.teams[c][0]),adapter.getItem(this.teams[c][1]),adapter.getItem(this.teams[c][2]),adapter.getItem(this.teams[c][3]));
-                */
-        }
+        updateData();
     }
 
-    private void updateData() {
+    public void updateData() {
 
         data = new ArrayList<>();
         List<JSONObject> charas = Guser.getCharas();
@@ -202,7 +173,7 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
             }
         }
 
-        mainActivity.setTeamName(teamNames.get(mPager.getCurrentItem()));
+        ((MainActivity)getActivity()).setTeamName(teamNames.get(((ViewPager)v.findViewById(R.id.teamPager)).getCurrentItem()));
         */
     }
 
@@ -218,10 +189,10 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
 
             view.setBackgroundColor(Color.argb(255, 0, 0, 0));
 
-            if(mainActivity.getSelectedChara() == position)
+            if(((MainActivity)getActivity()).getSelectedChara() == position)
                 ((RosterFragment)getParentFragment()).changePage(0);
             else
-                mainActivity.setSelectedChara(position);
+                ((MainActivity)getActivity()).setSelectedChara(position);
 
         } else {
 
@@ -231,7 +202,7 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
 
     public void putCharaToSlot(int selectedTeamSlot, int chara) {
 
-        int c = mPager.getCurrentItem();
+        int c = ((ViewPager)getView().findViewById(R.id.teamPager)).getCurrentItem();
 
         Guser.getTeams().get(c).setChar(selectedTeamSlot + 1, chara);
 
@@ -243,7 +214,7 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
             f.clearBorders();
         }
 
-        mainActivity.setSelectedChara(-1);
+        ((MainActivity)getActivity()).setSelectedChara(-1);
         this.selectedTeamSlot = 0;
 
         for(View v : getViews()) {
@@ -256,16 +227,16 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
 
     private View getView(int id) {
 
-        return recyclerView.getChildViewHolder(recyclerView.getChildAt(id)).itemView;
+        return ((RecyclerView)getView().findViewById(R.id.rosterList)).getChildViewHolder(((RecyclerView)getView().findViewById(R.id.rosterList)).getChildAt(id)).itemView;
     }
 
     private List<View> getViews() {
 
         List<View> views = new ArrayList<>();
 
-        for (int childCount = recyclerView.getChildCount(), i = 0; i < childCount; ++i) {
+        for (int childCount = ((RecyclerView)getView().findViewById(R.id.rosterList)).getChildCount(), i = 0; i < childCount; ++i) {
 
-            RecyclerView.ViewHolder holder = recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
+            RecyclerView.ViewHolder holder = ((RecyclerView)getView().findViewById(R.id.rosterList)).getChildViewHolder(((RecyclerView)getView().findViewById(R.id.rosterList)).getChildAt(i));
 
             views.add(holder.itemView);
         }
@@ -333,18 +304,48 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
     @Override
     public void showConnectingWidget() {
 
-        callback.showConnectingWidget();
+        ((FragmentResponse)getActivity()).showConnectingWidget();
     }
 
     @Override
     public void hideConnectingWidget() {
 
-        callback.hideConnectingWidget();
+        ((FragmentResponse)getActivity()).hideConnectingWidget();
     }
 
     @Override
     public void processFinish(int id, String result) {
 
-        callback.processFinish(id, result);
+        ((FragmentResponse)getActivity()).processFinish(id, result);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Debug.log("resume");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        Debug.log("att");
+
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        Debug.log("ress");
+
     }
 }
