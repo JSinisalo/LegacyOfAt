@@ -10,6 +10,9 @@
     <string name="main_battle">Battle</string>
     <string name="main_gacha">Gacha</string>
     <string name="main_shop">Shop</string>
+    <string name="gacha_1">Roll 1 \n 25 Jims</string>
+    <string name="gacha_10">Roll 11 \n 250 Jims</string>
     <string name="roster_details">Details</string>
+    <string name="battle_mock">Mock battle</string>
     <string name="misc_connecting">Connecting...</string>
 </resources>

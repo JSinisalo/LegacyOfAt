@@ -1,37 +1,164 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="440dp"
     android:layout_height="110dp"
     android:orientation="horizontal"
+    android:screenOrientation="landscape"
     tools:context="com.hert.legacyofat.frag.RosterTeamFragment">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/rightVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/topHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <TextView
+        android:id="@+id/slot1b"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/vert1"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:layout_margin="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="12sp"
+        />
 
     <TextView
         android:id="@+id/slot1"
-        android:layout_height="100dp"
-        android:layout_width="100dp"
-        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/vert1"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="12sp"
         android:background="@color/colorAccent"
+        android:text="TEST"
         android:onClick="onClick"/>
+
+    <TextView
+        android:id="@+id/slot2b"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/vert2"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:layout_margin="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="12sp"
+        />
 
     <TextView
         android:id="@+id/slot2"
-        android:layout_height="100dp"
-        android:layout_width="100dp"
-        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/vert2"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="12sp"
         android:background="@color/colorAccent"
         android:onClick="onClick"/>
+
+    <TextView
+        android:id="@+id/slot3b"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert2"
+        app:layout_constraintRight_toLeftOf="@+id/vert3"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:layout_margin="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="12sp"
+       />
 
     <TextView
         android:id="@+id/slot3"
-        android:layout_height="100dp"
-        android:layout_width="100dp"
-        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert2"
+        app:layout_constraintRight_toLeftOf="@+id/vert3"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="12sp"
@@ -39,14 +166,39 @@
         android:onClick="onClick"/>
 
     <TextView
+        android:id="@+id/slot4b"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert3"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:layout_margin="0dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="12sp"
+        />
+
+    <TextView
         android:id="@+id/slot4"
-        android:layout_height="100dp"
-        android:layout_width="100dp"
-        android:layout_margin="5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert3"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="12sp"
         android:background="@color/colorAccent"
         android:onClick="onClick"/>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

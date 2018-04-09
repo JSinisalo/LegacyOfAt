@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:screenOrientation="landscape"
     tools:context="com.hert.legacyofat.frag.MainFragment">
 
     <android.support.constraint.Guideline
@@ -46,9 +47,11 @@
         app:layout_constraintRight_toLeftOf="@+id/rightVert"
         app:layout_constraintTop_toTopOf="@+id/topHoriz"
         app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:maxLines = "1000"
+        android:scrollbars = "vertical"
         android:text="test this shouldnt be shown"
         android:textAlignment="center"
         android:gravity="center"
-        android:textSize="20sp" />
+        android:textSize="12sp" />
 
 </android.support.constraint.ConstraintLayout>

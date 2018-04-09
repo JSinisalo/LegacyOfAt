@@ -5,4 +5,8 @@ package com.hert.legacyofat.activity;
  */
 
 public interface FragmentResponse {
+
+    public void showConnectingWidget();
+    public void hideConnectingWidget();
+    public void processFinish(int id, String result);
 }

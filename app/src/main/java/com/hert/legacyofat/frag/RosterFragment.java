@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hert.legacyofat.R;
-import com.hert.legacyofat.activity.FragmentResponse;
 
 /**
  * Created by juhos on 20.3.2018.
@@ -20,18 +19,15 @@ import com.hert.legacyofat.activity.FragmentResponse;
 
 public class RosterFragment extends Fragment {
 
-    private FragmentResponse callback;
-
     private static final int NUM_PAGES = 2;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private RosterListFragment rosterListFragment;
 
     @Override
     public void onCreate(Bundle b) {
 
         super.onCreate(b);
-
-        callback = (FragmentResponse) getActivity();
     }
 
     @Nullable
@@ -54,6 +50,15 @@ public class RosterFragment extends Fragment {
         mPager.setCurrentItem(position);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(getView() != null && rosterListFragment != null)
+            rosterListFragment.setUserVisibleHint(isVisibleToUser);
+    }
+
     private class RosterPagerAdapter extends FragmentStatePagerAdapter {
 
         public RosterPagerAdapter(FragmentManager fm) {
@@ -67,11 +72,11 @@ public class RosterFragment extends Fragment {
             switch(position) {
 
                 case 1:
-                    return new RosterListFragment();
+                    return rosterListFragment = new RosterListFragment();
                 case 0:
                     return new RosterCharacterFragment();
                 default:
-                    return new RosterListFragment();
+                    return rosterListFragment = new RosterListFragment();
             }
         }
 

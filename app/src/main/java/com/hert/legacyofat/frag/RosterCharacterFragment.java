@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hert.legacyofat.R;
-import com.hert.legacyofat.activity.FragmentResponse;
 import com.hert.legacyofat.activity.MainActivity;
+import com.hert.legacyofat.backend.Guser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,21 +21,19 @@ import org.json.JSONObject;
 
 public class RosterCharacterFragment extends Fragment implements View.OnClickListener {
 
-    private FragmentResponse callback;
-    private JSONObject initialData;
+    TextView name;
+    TextView rarity;
+    TextView health;
+    TextView attack;
+    TextView defense;
+    TextView evade;
+    TextView speed;
+    TextView description;
 
     @Override
     public void onCreate(Bundle b) {
 
         super.onCreate(b);
-
-        callback = (FragmentResponse) getActivity();
-        initialData = ((MainActivity)getActivity()).getInitialData();
-    }
-
-    public void onClick(View v) {
-
-        ((RosterFragment)getParentFragment()).changePage(1);
     }
 
     @Nullable
@@ -44,7 +42,16 @@ public class RosterCharacterFragment extends Fragment implements View.OnClickLis
 
         View v = inflater.inflate(R.layout.fragment_roster_character, container, false);
 
-        v.findViewById(R.id.characterDetailsTest).setOnClickListener(this);
+        v.findViewById(R.id.characterDetailsCharacter).setOnClickListener(this);
+
+        name = v.findViewById(R.id.characterDetailsName);
+        rarity = v.findViewById(R.id.characterDetailsRarity);
+        health = v.findViewById(R.id.characterDetailsHealth);
+        attack = v.findViewById(R.id.characterDetailsAttack);
+        defense = v.findViewById(R.id.characterDetailsDefense);
+        evade = v.findViewById(R.id.characterDetailsEvade);
+        speed = v.findViewById(R.id.characterDetailsSpeed);
+        description = v.findViewById(R.id.characterDetailsDescription);
 
         return v;
     }
@@ -55,19 +62,50 @@ public class RosterCharacterFragment extends Fragment implements View.OnClickLis
         super.setUserVisibleHint(isVisibleToUser);
 
         if(getView() != null)
-            ((TextView)getView().findViewById(R.id.characterDetailsTest)).setText(getCharaData(((MainActivity)getActivity()).getSelectedChara()));
+            updateInfo();
     }
 
-    public String getCharaData(int id) {
+    public void updateInfo() {
 
-        try {
+        if(((MainActivity)getActivity()).getSelectedChara() != -1 && name != null) {
 
-            return initialData.getJSONArray("charas").getJSONObject(id).toString(2);
+            JSONObject character = Guser.getCharas().get(((MainActivity)getActivity()).getSelectedChara());
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            try {
+
+                name.setText(character.getString("name") + " - " + character.getString("level"));
+
+                String r = "";
+
+                for(int i = 0; i < character.getInt("rarity"); i++) {
+
+                    r += "*";
+                }
+
+                rarity.setText(r);
+                health.setText("Health: " + character.getString("health"));
+                attack.setText("Attack: " + character.getString("attack"));
+                defense.setText("Defense: " + character.getString("defense"));
+                evade.setText("Evade: " + character.getString("evade"));
+                speed.setText("Speed: " + character.getString("speed"));
+                description.setText(character.getString("description"));
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
         }
+    }
 
-        return null;
+    public void onClick(View v) {
+
+        switch(v.getId()) {
+
+            case R.id.characterDetailsCharacter:
+
+                ((RosterFragment)getParentFragment()).changePage(1);
+
+                break;
+        }
     }
 }

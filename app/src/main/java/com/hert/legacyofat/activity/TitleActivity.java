@@ -25,8 +25,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.hert.legacyofat.R;
 import com.hert.legacyofat.async.CallBackendTask;
-import com.hert.legacyofat.error.PopupError;
+import com.hert.legacyofat.backend.Guser;
 import com.hert.legacyofat.misc.Debug;
+import com.hert.legacyofat.popup.PopupError;
 
 public class TitleActivity extends AppCompatActivity implements AsyncResponse, FragmentResponse, PopupError.PopupErrorListener {
 
@@ -36,8 +37,7 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
     private PlayersClient mPlayersClient;
 
     private static final int RC_SIGN_IN = 9001;
-    private static final int CHECK_GUSER = 1;
-    private static final int GET_GUSER_DATA = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +45,8 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Debug.log(getResources().getConfiguration().orientation);
         setContentView(R.layout.activity_title);
-
-        Debug.log(GoogleSignIn.getLastSignedInAccount(this) + "");
 
         mGoogleSignInClient = GoogleSignIn.getClient(this,
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
@@ -67,7 +66,7 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
         // Since the state of the signed in user can change when the activity is not active
         // it is recommended to try and sign in silently from when the app resumes.
-        signInSilently();
+        //signInSilently();
     }
 
     private void signInSilently() {
@@ -97,6 +96,11 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
             signInSilently();
     }
 
+    public void onCrawl(View view) {
+
+        checkGuser("crawler");
+    }
+
     private void startSignInIntent() {
 
         startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
@@ -122,15 +126,9 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
                 if (message == null || message.isEmpty()) {
 
-                    Bundle b = new Bundle();
-
-                    b.putString("title", "Error: Google ApiException");
-                    b.putString("content", "Error connecting to Google API. Going back to title screen.");
-                    b.putBoolean("restart", true);
-
-                    DialogFragment dialog = new PopupError();
-                    dialog.setArguments(b);
-                    dialog.show(getSupportFragmentManager(), "PopupError");
+                    PopupError.newPopupError("Error: Google ApiException",
+                                          "Error connecting to Google API. Going back to title screen.",
+                                               0, true, getSupportFragmentManager());
                 }
 
                 onDisconnected();
@@ -156,15 +154,9 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
                 } else {
 
-                    Bundle b = new Bundle();
-
-                    b.putString("title", "Error: Google ApiException");
-                    b.putString("content", "Error getting Google Games player data. Going back to title screen.");
-                    b.putBoolean("restart", true);
-
-                    DialogFragment dialog = new PopupError();
-                    dialog.setArguments(b);
-                    dialog.show(getSupportFragmentManager(), "PopupError");
+                    PopupError.newPopupError("Error: Google ApiException",
+                            "Error connecting to Google API. Going back to title screen.",
+                            0, true, getSupportFragmentManager());
                 }
             }
         });
@@ -181,12 +173,12 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
     private void checkGuser(String token) {
 
-        new CallBackendTask(CHECK_GUSER, this).execute("http://91.155.202.223:7500/api/test", token);
+        new CallBackendTask(CallBackendTask.CHECK_GUSER, this).execute("http://91.155.202.223:7500/api/test", token);
     }
 
     private void getGuserData(String token) {
 
-        new CallBackendTask(GET_GUSER_DATA, this).execute("http://91.155.202.223:7500/api/me", token);
+        new CallBackendTask(CallBackendTask.GET_GUSER_DATA, this).execute("http://91.155.202.223:7500/api/me", token);
     }
 
     @Override
@@ -206,20 +198,32 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
         switch(id) {
 
-            case CHECK_GUSER:
+            case CallBackendTask.CHECK_GUSER:
 
-                Games.getGamesClient(this, mGoogleSignInAccount).setViewForPopups(findViewById(R.id.signInText));
-                Games.getGamesClient(this, mGoogleSignInAccount).setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+                if(mGoogleSignInAccount != null) {
 
-                getGuserData(mGoogleSignInAccount.getIdToken());
+                    Games.getGamesClient(this, mGoogleSignInAccount).setViewForPopups(findViewById(R.id.signInText));
+                    Games.getGamesClient(this, mGoogleSignInAccount).setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+
+                    getGuserData(mGoogleSignInAccount.getIdToken());
+
+                } else {
+
+                    getGuserData("crawler");
+                }
 
                 break;
 
-            case GET_GUSER_DATA:
+            case CallBackendTask.GET_GUSER_DATA:
+
+                Guser.setFullData(result);
+
+                if(mGoogleSignInAccount != null)
+                    Guser.setToken(mGoogleSignInAccount.getIdToken());
+                else
+                    Guser.setToken("crawler");
 
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("INITIALDATA", result);
-                intent.putExtra("GOOGLESIGNINACCOUNT", mGoogleSignInAccount);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 finish(); //TODO: wtf finish first?
@@ -231,15 +235,9 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
             case -1:
             default:
 
-                Bundle b = new Bundle();
-
-                b.putString("title", "Error: Backend connectivity");
-                b.putString("content", "Error communicating with backend. Going back to title screen.");
-                b.putBoolean("restart", true);
-
-                DialogFragment dialog = new PopupError();
-                dialog.setArguments(b);
-                dialog.show(getSupportFragmentManager(), "PopupError");
+                PopupError.newPopupError("Error: Backend connectivity",
+                        "Error connecting to backend. Going back to title screen.",
+                        0, true, getSupportFragmentManager());
 
                 break;
         }
@@ -270,7 +268,7 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
     }
 
     @Override
-    public void onDialogClose(DialogFragment dialog) {
+    public void onDialogClose(DialogFragment dialog, int id) {
 
     }
 }

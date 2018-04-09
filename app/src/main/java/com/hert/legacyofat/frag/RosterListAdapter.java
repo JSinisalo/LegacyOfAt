@@ -73,7 +73,15 @@ public class RosterListAdapter extends RecyclerView.Adapter<RosterListAdapter.Vi
     // convenience method for getting data at click position
     public String getItem(int id) {
 
-        return mData.get(id);
+        if(id != -1)
+            return mData.get(id);
+        else
+            return "";
+    }
+
+    public void setData(List<String> data) {
+
+        this.mData = data;
     }
 
     // allows clicks events to be caught

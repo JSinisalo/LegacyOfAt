@@ -1,15 +1,7 @@
-package com.hert.legacyofatbackend.db;
+package com.hert.legacyofat.backend;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class Team {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
     private String name;
@@ -22,14 +14,18 @@ public class Team {
     public Team() {
     }
 
-    public Team(String name) {
+    public Team(String name, int char1, int char2, int char3, int char4, long id) {
 
         this.name = name;
-        char1 = 0;
-        char2 = -1;
-        char3 = -1;
-        char4 = -1;
+        this.char1 = char1;
+        this.char2 = char2;
+        this.char3 = char3;
+        this.char4 = char4;
+        this.id = id;
     }
+
+    public int getChar(int i) { switch(i) {case 1: return char1; case 2: return char2; case 3: return char3; case 4: return char4;} return 0; }
+    public void setChar(int i, int j) { switch(i) {case 1: char1 = j; break; case 2: char2 = j; break; case 3: char3 = j; break; case 4: char4 = j;} }
 
     public String getName() {
         return name;

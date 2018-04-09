@@ -1,9 +1,8 @@
 package com.hert.legacyofatbackend.db.template.character;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.hert.legacyofatbackend.db.template.item.Item;
+
+import javax.persistence.*;
 
 @Entity
 public abstract class Chara {
@@ -31,6 +30,15 @@ public abstract class Chara {
 
     private double evade;
     private double speed;
+
+    @OneToOne
+    private Item armor;
+    @OneToOne
+    private Item weapon;
+    @OneToOne
+    private Item trinket1;
+    @OneToOne
+    private Item trinket2;
 
     public Chara() { maxRarity = 5; maxLevel = 50; xp = 0; level = 1; }
 
@@ -136,5 +144,37 @@ public abstract class Chara {
 
     public void setMaxLevel(int maxLevel) {
         this.maxLevel = maxLevel;
+    }
+
+    public Item getArmor() {
+        return armor;
+    }
+
+    public void setArmor(Item armor) {
+        this.armor = armor;
+    }
+
+    public Item getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Item weapon) {
+        this.weapon = weapon;
+    }
+
+    public Item getTrinket1() {
+        return trinket1;
+    }
+
+    public void setTrinket1(Item trinket1) {
+        this.trinket1 = trinket1;
+    }
+
+    public Item getTrinket2() {
+        return trinket2;
+    }
+
+    public void setTrinket2(Item trinket2) {
+        this.trinket2 = trinket2;
     }
 }

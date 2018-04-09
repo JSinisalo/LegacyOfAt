@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:screenOrientation="landscape"
     tools:context="com.hert.legacyofat.frag.RosterListFragment">
 
     <android.support.constraint.Guideline
@@ -39,43 +40,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_begin="110dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/seperator1Vert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.13" />
 
     <android.support.constraint.Guideline
         android:id="@+id/seperator2Vert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.74" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <android.support.constraint.Guideline
         android:id="@+id/seperator3Vert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.82" />
-
-    <Button
-        android:id="@+id/details"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/seperator3Vert"
-        app:layout_constraintRight_toLeftOf="@+id/rightVert"
-        app:layout_constraintTop_toTopOf="@+id/topHoriz"
-        app:layout_constraintBottom_toTopOf="@+id/seperatorHoriz"
-        android:onClick="onClick"
-        android:text="@string/roster_details"/>
+        app:layout_constraintGuide_percent="1" />
 
     <Button
         android:id="@+id/teamLeft"
@@ -107,10 +93,10 @@
         android:onClick="onClick"
         android:text="R"/>
 
-    
+
     <com.hert.legacyofat.layout.NonSwipeableViewPager
         android:id="@+id/teamPager"
-        android:layout_width="0dp"
+        android:layout_width="440dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"

@@ -1,5 +1,6 @@
 package com.hert.legacyofatbackend;
 
+import com.hert.legacyofatbackend.api.Gacha;
 import com.hert.legacyofatbackend.db.GuserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,8 @@ public class LegacyofatbackendApplication implements CommandLineRunner {
     private GuserRepository guserRepository;
 
 	public static void main(String[] args) {
+
+		Gacha.init();
 		SpringApplication.run(LegacyofatbackendApplication.class, args);
 	}
 

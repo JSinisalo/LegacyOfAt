@@ -3,24 +3,23 @@ package com.hert.legacyofat.frag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hert.legacyofat.R;
-import com.hert.legacyofat.activity.FragmentResponse;
+import com.hert.legacyofat.backend.Guser;
+
+import org.json.JSONException;
 
 public class MainFragment extends Fragment {
-
-    private FragmentResponse callback;
 
     @Override
     public void onCreate(Bundle b) {
 
         super.onCreate(b);
-
-        callback = (FragmentResponse) getActivity();
     }
 
     @Nullable
@@ -29,7 +28,12 @@ public class MainFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-        ((TextView)v.findViewById(R.id.mainFragmentTest)).setText("times logged in: " + getArguments().getString("initial"));
+        try {
+            ((TextView)v.findViewById(R.id.mainFragmentTest)).setText(Guser.getJson().toString(2));
+            ((TextView)v.findViewById(R.id.mainFragmentTest)).setMovementMethod(new ScrollingMovementMethod());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return v;
     }

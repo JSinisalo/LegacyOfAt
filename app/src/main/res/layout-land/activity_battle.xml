@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:screenOrientation="landscape"
-    tools:context="com.hert.legacyofat.activity.TitleActivity">
+    tools:context="com.hert.legacyofat.activity.BattleActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/leftVert"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0" />
+        app:layout_constraintGuide_percent="0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/bottomHoriz"
@@ -51,43 +51,7 @@
         app:layout_constraintGuide_percent="0.2" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/signInText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
-        app:layout_constraintRight_toLeftOf="@+id/rightVert"
-        app:layout_constraintTop_toTopOf="@+id/topHoriz"
-        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
-        android:text="@string/sign_in"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:onClick="onClick"/>
-
-    <Button
-        android:id="@+id/signInButton"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
-        app:layout_constraintRight_toLeftOf="@+id/rightVert"
-        app:layout_constraintTop_toTopOf="@+id/topHoriz"
-        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
-        android:text="GOOGLE CRAWLER "
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:onClick="onCrawl"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/titleConnecting"
+        android:id="@+id/battleConnecting"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -103,5 +67,23 @@
         android:gravity="center"
         android:textSize="24sp"
         android:visibility="invisible"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/battleText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:text="batoru"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:onClick="onClick"/>
 
 </android.support.constraint.ConstraintLayout>

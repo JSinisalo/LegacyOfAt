@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.hert.legacyofat.frag.MainFragment">
+    android:screenOrientation="landscape"
+    tools:context="com.hert.legacyofat.frag.GachaFragment">
 
     <android.support.constraint.Guideline
         android:id="@+id/leftVert"
@@ -34,6 +35,48 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="1" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/horiz1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horiz2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -45,9 +88,39 @@
         app:layout_constraintRight_toLeftOf="@+id/rightVert"
         app:layout_constraintTop_toTopOf="@+id/topHoriz"
         app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
-        android:text="gacha placeboulder"
+        android:text="\n\ncool background picture later"
         android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="20sp" />
+        android:gravity="top"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/roll1Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/vert2"
+        app:layout_constraintTop_toTopOf="@+id/horiz1"
+        app:layout_constraintBottom_toTopOf="@+id/horiz2"
+        android:onClick="onClick"
+        android:text="@string/gacha_1"/>
+
+    <Button
+        android:id="@+id/roll10Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert3"
+        app:layout_constraintRight_toLeftOf="@+id/vert4"
+        app:layout_constraintTop_toTopOf="@+id/horiz1"
+        app:layout_constraintBottom_toTopOf="@+id/horiz2"
+        android:onClick="onClick"
+        android:text="@string/gacha_10"/>
 
 </android.support.constraint.ConstraintLayout>
