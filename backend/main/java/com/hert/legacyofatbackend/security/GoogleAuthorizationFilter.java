@@ -10,6 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Custom filter for google authorizations. Every connection goes through this filter and if it fails the user wont get to the rest endpoints.
+ */
 public class GoogleAuthorizationFilter extends GenericFilterBean {
 
     @Override

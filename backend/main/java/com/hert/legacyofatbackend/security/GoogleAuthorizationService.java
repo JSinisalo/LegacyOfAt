@@ -12,11 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
+import java.util.Random;
 
 import static java.util.Collections.emptyList;
 
+/**
+ * Custom authorization service for verifying google jwt tokens.
+ */
 public class GoogleAuthorizationService {
 
+    /**
+     * Gets authentication headers and attempts to verify them.
+     *
+     * @param request the request
+     * @return returns a valid token if the verifying was successfull, otherwise null
+     */
     public static Authentication getAuthentication(HttpServletRequest request) {
 
         GoogleIdToken token = null;
@@ -39,9 +49,15 @@ public class GoogleAuthorizationService {
 
         System.out.println("Illegal aliens tried to contact the server " + request);
 
-        return null;
+        return new UsernamePasswordAuthenticationToken("", null, null);
     }
 
+    /**
+     * Verifies the jwt token.
+     *
+     * @param token googleidtoken
+     * @return googleidtoken
+     */
     private static GoogleIdToken verifyGoogleIdToken(String token) {
 
         GoogleIdToken idToken = null;

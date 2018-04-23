@@ -5,9 +5,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * The type Entity exception handler.
+ */
 @ControllerAdvice
 public class EntityExceptionHandler {
 
+    /**
+     * Handle conflict response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(CannotFindPlayerException.class)
     public ResponseEntity<ErrorInfo> handleConflict(CannotFindPlayerException ex) {
 
