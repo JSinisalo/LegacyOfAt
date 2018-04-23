@@ -10,13 +10,27 @@ import android.widget.Scroller;
 
 import java.lang.reflect.Field;
 
+/**
+ * Custom view pager that cant be touch controlled and scrolls vertically.
+ */
 public class NonSwipeableVerticalViewPager extends ViewPager {
 
+    /**
+     * Instantiates a new Non swipeable vertical view pager.
+     *
+     * @param context the context
+     */
     public NonSwipeableVerticalViewPager(Context context) {
         super(context);
         setMyScroller();
     }
 
+    /**
+     * Instantiates a new Non swipeable vertical view pager.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public NonSwipeableVerticalViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         setMyScroller();
@@ -34,8 +48,6 @@ public class NonSwipeableVerticalViewPager extends ViewPager {
         return false;
     }
 
-    //down one is added for smooth scrolling
-
     private void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;
@@ -52,7 +64,15 @@ public class NonSwipeableVerticalViewPager extends ViewPager {
         }
     }
 
+    /**
+     * The type My scroller.
+     */
     public class MyScroller extends Scroller {
+        /**
+         * Instantiates a new My scroller.
+         *
+         * @param context the context
+         */
         public MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }

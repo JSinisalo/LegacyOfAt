@@ -1,5 +1,6 @@
 package com.hert.legacyofat.frag;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,15 +15,13 @@ import com.hert.legacyofat.R;
 import com.hert.legacyofat.activity.MainActivity;
 import com.hert.legacyofat.backend.Guser;
 import com.hert.legacyofat.backend.Team;
-import com.hert.legacyofat.misc.Debug;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 
 /**
- * Created by juhos on 20.3.2018.
+ * Fragment which holds the teams of characters.
  */
-
 public class RosterTeamFragment extends Fragment implements View.OnClickListener {
 
     private int selectedSlot = 0;
@@ -43,18 +42,6 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
 
         View v = inflater.inflate(R.layout.fragment_roster_team, container, false);
 
-        /*
-        slot1 = (v.findViewById(R.id.slot1));
-        slot2 = (v.findViewById(R.id.slot2));
-        slot3 = (v.findViewById(R.id.slot3));
-        slot4 = (v.findViewById(R.id.slot4));
-
-        slot1b = (v.findViewById(R.id.slot1b));
-        slot2b = (v.findViewById(R.id.slot2b));
-        slot3b = (v.findViewById(R.id.slot3b));
-        slot4b = (v.findViewById(R.id.slot4b));
-        */
-
         v.findViewById(R.id.slot1).setOnClickListener(this);
         v.findViewById(R.id.slot2).setOnClickListener(this);
         v.findViewById(R.id.slot3).setOnClickListener(this);
@@ -74,31 +61,56 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
         updateNames();
     }
 
+    /**
+     * Updates the graphics on the teams.
+     */
     public void updateNames() {
 
         if(getView() != null) {
 
             List<Team> teams = Guser.getTeams();
 
-            ((TextView)getView().findViewById(R.id.slot1)).setText(Guser.getNameFromPosition(teams.get(position).getChar1()));
-            ((TextView)getView().findViewById(R.id.slot2)).setText(Guser.getNameFromPosition(teams.get(position).getChar2()));
-            ((TextView)getView().findViewById(R.id.slot3)).setText(Guser.getNameFromPosition(teams.get(position).getChar3()));
-            ((TextView)getView().findViewById(R.id.slot4)).setText(Guser.getNameFromPosition(teams.get(position).getChar4()));
+            ((TextView)getView().findViewById(R.id.slot1)).setText(Guser.getGraphicFromPosition(teams.get(position).getChar1()));
+            ((TextView)getView().findViewById(R.id.slot2)).setText(Guser.getGraphicFromPosition(teams.get(position).getChar2()));
+            ((TextView)getView().findViewById(R.id.slot3)).setText(Guser.getGraphicFromPosition(teams.get(position).getChar3()));
+            ((TextView)getView().findViewById(R.id.slot4)).setText(Guser.getGraphicFromPosition(teams.get(position).getChar4()));
 
+            ((TextView)getView().findViewById(R.id.slot1)).setTextColor(Color.parseColor(Guser.getColorFromPosition(teams.get(position).getChar1())));
+            ((TextView)getView().findViewById(R.id.slot2)).setTextColor(Color.parseColor(Guser.getColorFromPosition(teams.get(position).getChar2())));
+            ((TextView)getView().findViewById(R.id.slot3)).setTextColor(Color.parseColor(Guser.getColorFromPosition(teams.get(position).getChar3())));
+            ((TextView)getView().findViewById(R.id.slot4)).setTextColor(Color.parseColor(Guser.getColorFromPosition(teams.get(position).getChar4())));
+
+            getView().findViewById(R.id.slot1).refreshDrawableState();
+            getView().findViewById(R.id.slot2).refreshDrawableState();
+            getView().findViewById(R.id.slot3).refreshDrawableState();
+            getView().findViewById(R.id.slot4).refreshDrawableState();
         }
     }
 
+    /**
+     * Clear highlight borders.
+     */
     public void clearBorders() {
 
         if(getView() != null) {
 
-            getView().findViewById(R.id.slot1b).setBackgroundColor(Color.argb(0, 0, 0, 0));
-            getView().findViewById(R.id.slot2b).setBackgroundColor(Color.argb(0, 0, 0, 0));
-            getView().findViewById(R.id.slot3b).setBackgroundColor(Color.argb(0, 0, 0, 0));
-            getView().findViewById(R.id.slot4b).setBackgroundColor(Color.argb(0, 0, 0, 0));
+            getView().findViewById(R.id.slot1).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFFFF")));
+            getView().findViewById(R.id.slot2).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFFFF")));
+            getView().findViewById(R.id.slot3).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFFFF")));
+            getView().findViewById(R.id.slot4).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFFFF")));
+
+            getView().findViewById(R.id.slot1).refreshDrawableState();
+            getView().findViewById(R.id.slot2).refreshDrawableState();
+            getView().findViewById(R.id.slot3).refreshDrawableState();
+            getView().findViewById(R.id.slot4).refreshDrawableState();
         }
     }
 
+    /**
+     * On click.
+     *
+     * @param v view
+     */
     public void onClick(View v) {
 
         clearBorders();
@@ -107,8 +119,6 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
 
         if(((MainActivity)getActivity()).getSelectedChara() == -1) {
 
-            Debug.log(selectedSlot);
-
             switch(v.getId()) {
 
                 case R.id.slot1:
@@ -116,7 +126,8 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
                     if(selectedSlot != 1) {
 
                         selectedSlot = 1;
-                        getView().findViewById(R.id.slot1b).setBackgroundColor(Color.argb(255, 0, 0, 0));
+                        getView().findViewById(R.id.slot1).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF00FF00")));
+                        getView().findViewById(R.id.slot1).refreshDrawableState();
                     }
                     else
                         remove = true;
@@ -128,7 +139,8 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
                     if(selectedSlot != 2) {
 
                         selectedSlot = 2;
-                        getView().findViewById(R.id.slot2b).setBackgroundColor(Color.argb(255, 0, 0, 0));
+                        getView().findViewById(R.id.slot2).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF00FF00")));
+                        getView().findViewById(R.id.slot2).refreshDrawableState();
                     }
                     else
                         remove = true;
@@ -140,7 +152,8 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
                     if(selectedSlot != 3) {
 
                         selectedSlot = 3;
-                        getView().findViewById(R.id.slot3b).setBackgroundColor(Color.argb(255, 0, 0, 0));
+                        getView().findViewById(R.id.slot3).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF00FF00")));
+                        getView().findViewById(R.id.slot3).refreshDrawableState();
                     }
                     else
                         remove = true;
@@ -152,7 +165,8 @@ public class RosterTeamFragment extends Fragment implements View.OnClickListener
                     if(selectedSlot != 4) {
 
                         selectedSlot = 4;
-                        getView().findViewById(R.id.slot4b).setBackgroundColor(Color.argb(255, 0, 0, 0));
+                        getView().findViewById(R.id.slot4).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF00FF00")));
+                        getView().findViewById(R.id.slot4).refreshDrawableState();
                     }
                     else
                         remove = true;

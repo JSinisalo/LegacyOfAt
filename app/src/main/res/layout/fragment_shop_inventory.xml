@@ -1,0 +1,293 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:screenOrientation="landscape"
+    android:background="#000000"
+    tools:context="com.hert.legacyofat.frag.ShopInventoryFragment">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/rightVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/topHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.60" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizSeperator9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/itemList"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/vert1"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator5" />
+
+    <Button
+        android:id="@+id/itemButton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/vert1"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator5"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:text="Select"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF"
+        android:background="#00000000"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:layout_width="12dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/vert1"
+        android:includeFontPadding="false"
+        android:text="|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator1"
+        android:text="väinämöinen - 60"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator1"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator2"
+        android:text="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsHealth"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator2"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator3"
+        android:text="health"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsAttack"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator3"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator4"
+        android:text="attack"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsDefense"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator4"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator5"
+        android:text="defense"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsEvade"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator5"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator6"
+        android:text="evade"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/itemDetailsSpeed"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/vert1"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horizSeperator6"
+        app:layout_constraintBottom_toTopOf="@+id/horizSeperator7"
+        android:text="speed"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+</android.support.constraint.ConstraintLayout>

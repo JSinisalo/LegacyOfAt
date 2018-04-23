@@ -1,0 +1,106 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:screenOrientation="landscape"
+    android:background="#000000"
+    tools:context="com.hert.legacyofat.frag.GachaResultFragment">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/rightVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/topHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horiz1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horiz2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resultList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horiz2"
+        app:layout_constraintBottom_toTopOf="@+id/horiz1" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/horiz1"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:text="Back"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF"
+        android:background="#00000000"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/horiz2"
+        android:text="Roll results!"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF" />
+
+</android.support.constraint.ConstraintLayout>

@@ -8,6 +8,11 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -23,13 +28,24 @@ import com.google.android.gms.games.Player;
 import com.google.android.gms.games.PlayersClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
 import com.hert.legacyofat.async.CallBackendTask;
 import com.hert.legacyofat.backend.Guser;
-import com.hert.legacyofat.misc.Debug;
+import com.hert.legacyofat.frag.TitleMainFragment;
+import com.hert.legacyofat.frag.TitleNoteFragment;
+import com.hert.legacyofat.misc.Utils;
+import com.hert.legacyofat.popup.PopupEditText;
 import com.hert.legacyofat.popup.PopupError;
+import com.squareup.leakcanary.RefWatcher;
 
+/**
+ * Activity for handling user log in to google play games services and getting the initial Guser data from backend.
+ */
 public class TitleActivity extends AppCompatActivity implements AsyncResponse, FragmentResponse, PopupError.PopupErrorListener {
+
+    private static final int NUM_PAGES = 2;
+    private ViewPager mPager;
 
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInAccount mGoogleSignInAccount;
@@ -44,15 +60,29 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        Debug.log(getResources().getConfiguration().orientation);
         setContentView(R.layout.activity_title);
 
         mGoogleSignInClient = GoogleSignIn.getClient(this,
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
                 .requestIdToken(getString(R.string.web_id))
                 .build());
+
+        mPager = (ViewPager) findViewById(R.id.contentPager);
+        PagerAdapter mPagerAdapter = new TitleActivity.ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setOffscreenPageLimit(2);
+
+        mPager.setCurrentItem(1);
+
+        getWindow().setExitTransition(null);
+        getWindow().setEnterTransition(null);
     }
 
+    /**
+     * If user is already signed in.
+     *
+     * @return signed in or not
+     */
     private boolean isSignedIn() {
 
         return GoogleSignIn.getLastSignedInAccount(this) != null;
@@ -68,6 +98,9 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         //signInSilently();
     }
 
+    /**
+     * Attempts to sign in to gms without any prompts from the user.
+     */
     private void signInSilently() {
 
         mGoogleSignInClient.silentSignIn().addOnCompleteListener(this, new OnCompleteListener<GoogleSignInAccount>() {
@@ -87,6 +120,11 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         });
     }
 
+    /**
+     * On click.
+     *
+     * @param view the view
+     */
     public void onClick(View view) {
 
         if(!isSignedIn())
@@ -95,11 +133,19 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
             signInSilently();
     }
 
+    /**
+     * Method for google pre launch report crawlers. Wont do anything in release because backend wont accept it.
+     *
+     * @param view the view
+     */
     public void onCrawl(View view) {
 
         checkGuser("crawler");
     }
 
+    /**
+     * Starts the sign in intent to gms.
+     */
     private void startSignInIntent() {
 
         startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
@@ -135,6 +181,11 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         }
     }
 
+    /**
+     * When the user has signed in to gms.
+     *
+     * @param googleSignInAccount the google sign in account
+     */
     private void onConnected(final GoogleSignInAccount googleSignInAccount) {
 
         //master coder here mate
@@ -170,14 +221,35 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         }
     };
 
+    /**
+     * Method for starting Guser check in backend.
+     *
+     * @param token google jwt token
+     */
     private void checkGuser(String token) {
 
-        new CallBackendTask(CallBackendTask.CHECK_GUSER, this).execute("http://91.155.202.223:7500/api/test", token);
+        mPager.setCurrentItem(0);
+        new CallBackendTask(CallBackendTask.CHECK_GUSER, this).execute("api/test", token);
     }
 
+    /**
+     * Method for getting Guser data from backend.
+     *
+     * @param token google jwt token
+     */
     private void getGuserData(String token) {
 
-        new CallBackendTask(CallBackendTask.GET_GUSER_DATA, this).execute("http://91.155.202.223:7500/api/me", token);
+        new CallBackendTask(CallBackendTask.GET_GUSER_DATA, this).execute("api/me", token);
+    }
+
+    /**
+     * Method for getting name from user to be set in the backend.
+     */
+    private void setGuserName() {
+
+        PopupEditText.newPopupEditText("Whats your name?",
+                "hehe xd",
+                8, true, getSupportFragmentManager());
     }
 
     @Override
@@ -204,13 +276,25 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
                     Games.getGamesClient(this, mGoogleSignInAccount).setViewForPopups(findViewById(R.id.signInText));
                     Games.getGamesClient(this, mGoogleSignInAccount).setGravityForPopups(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
 
-                    getGuserData(mGoogleSignInAccount.getIdToken());
+                    if(result.equals("success")) {
+
+                        getGuserData(mGoogleSignInAccount.getIdToken());
+
+                    } else {
+
+                        setGuserName();
+                    }
 
                 } else {
 
                     getGuserData("crawler");
                 }
 
+                break;
+
+            case CallBackendTask.POST_NAME:
+
+                getGuserData(mGoogleSignInAccount.getIdToken());
                 break;
 
             case CallBackendTask.GET_GUSER_DATA:
@@ -242,11 +326,17 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
         }
     }
 
+    /**
+     * When the user has signed out of gms.
+     */
     private void onDisconnected() {
 
         mPlayersClient = null;
     }
 
+    /**
+     * Signs out from gms.
+     */
     private void signOut() {
 
         if (!isSignedIn()) {
@@ -267,7 +357,59 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
     }
 
     @Override
-    public void onDialogClose(DialogFragment dialog, int id) {
+    public void onDialogClose(DialogFragment dialog, int id, String extra) {
 
+        switch(id) {
+
+            case 8:
+
+                new CallBackendTask(CallBackendTask.POST_NAME, this).execute("api/name", mGoogleSignInAccount.getIdToken(), extra);
+                break;
+        }
+    }
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        /**
+         * Instantiates a new Screen slide pager adapter.
+         *
+         * @param fm the fm
+         */
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch(position) {
+
+                case 1:
+                    return new TitleMainFragment();
+                case 0:
+                    return new TitleNoteFragment();
+                default:
+                    return new TitleMainFragment();
+            }
+        }
+
+        @Override
+        public int getCount() {
+
+            return NUM_PAGES;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+
+        Utils.clearTextLineCache();
+
+        mPager = null;
+
+        super.onDestroy();
+        RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(this);
+        refWatcher.watch(this);
     }
 }

@@ -1,0 +1,12 @@
+com.hert.legacyofatbackend
+com.hert.legacyofatbackend.api
+com.hert.legacyofatbackend.config
+com.hert.legacyofatbackend.db
+com.hert.legacyofatbackend.db.template.action
+com.hert.legacyofatbackend.db.template.battle
+com.hert.legacyofatbackend.db.template.battle.battles
+com.hert.legacyofatbackend.db.template.character
+com.hert.legacyofatbackend.db.template.enemy
+com.hert.legacyofatbackend.db.template.item
+com.hert.legacyofatbackend.exception
+com.hert.legacyofatbackend.security

@@ -14,18 +14,61 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by juhos on 19.3.2018.
+ * Easy to use async task to call to the backend and receive data.
  */
-
 public class CallBackendTask extends GenericNetworkTask {
 
+    /**
+     * The constant CHECK_GUSER.
+     */
     public static final int CHECK_GUSER = 1;
+    /**
+     * The constant GET_GUSER_DATA.
+     */
     public static final int GET_GUSER_DATA = 2;
+    /**
+     * The constant GET_GUSER_ROLL.
+     */
     public static final int GET_GUSER_ROLL = 3;
+    /**
+     * The constant POST_TEAM_DATA.
+     */
     public static final int POST_TEAM_DATA = 4;
+    /**
+     * The constant START_BATTLE.
+     */
     public static final int START_BATTLE = 5;
-    public static final int START_BATTLERESULTS = 6;
+    /**
+     * The constant START_BATTLERESULTS_WIN.
+     */
+    public static final int START_BATTLERESULTS_WIN = 6;
+    /**
+     * The constant START_BATTLERESULTS_LOSE.
+     */
+    public static final int START_BATTLERESULTS_LOSE = 7;
+    /**
+     * The constant POST_CHARA_ITEMS.
+     */
+    public static final int POST_CHARA_ITEMS = 8;
+    /**
+     * The constant BUY_ITEM.
+     */
+    public static final int BUY_ITEM = 9;
+    /**
+     * The constant SELL_ITEM.
+     */
+    public static final int SELL_ITEM = 10;
+    /**
+     * The constant POST_NAME.
+     */
+    public static final int POST_NAME = 11;
 
+    /**
+     * Instantiates a new Call backend task.
+     *
+     * @param id       the id (constants above) which can be checked once the task ends and sends back data
+     * @param activity the activity that instantiated this task
+     */
     public CallBackendTask(int id, AsyncResponse activity) {
 
         super(id, activity);
@@ -45,7 +88,9 @@ public class CallBackendTask extends GenericNetworkTask {
 
         try {
 
-            urlConnection = (HttpURLConnection) (new URL(strings[0]).openConnection());
+            //http://91.155.202.223:7500/
+            //http://legacyofat.herokuapp.com/
+            urlConnection = (HttpURLConnection) (new URL("http://legacyofat.herokuapp.com/" + strings[0]).openConnection());
             urlConnection.setRequestProperty("Authorization","Bearer " + strings[1]);
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");

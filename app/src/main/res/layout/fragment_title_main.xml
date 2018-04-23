@@ -1,0 +1,55 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:screenOrientation="landscape"
+    android:background="#000000"
+    tools:context="com.hert.legacyofat.activity.TitleActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/leftVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/rightVert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/topHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/bottomHoriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/signInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
+        app:layout_constraintRight_toLeftOf="@+id/rightVert"
+        app:layout_constraintTop_toTopOf="@+id/topHoriz"
+        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
+        android:text="@string/sign_in"
+        android:textSize="16sp"
+        android:fontFamily="monospace"
+        android:textColor="#FFFFFF"
+        android:background="#00000000"
+        android:onClick="onClick"
+        />
+
+</android.support.constraint.ConstraintLayout>

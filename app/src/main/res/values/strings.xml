@@ -3,15 +3,87 @@
     <string name="signin_other_error">There was an issue with sign in. Please try again later.</string>
     <string name="players_exception">There was an issue communicating with players.</string>
     <string name="status_exception_error">%1$s (status %2$d). %3$s.</string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in">"
+  _                                  ____   __       _
+ | |                                / __ \\ / _| /\\  | |
+ | |     ___  __ _  __ _  ___ _   _| |  | | |_ /  \\ | |_
+ | |    / _ \\/ _` |/ _` |/ __| | | | |  | |  _/ /\\ \\| __|
+ | |___|  __/ (_| | (_| | (__| |_| | |__| | |/ ____ \\ |_
+ |______\\___|\\__, |\\__,_|\\___|\\__, |\\____/|_/_/    \\_\\__|
+              __/ |            __/ |
+             |___/            |___/
+
+
+                       Touch to start..."</string>
+    <string name="gacha_pic">"
+ $$$$$$\\                      $$\\                 
+$$  __$$\\                     $$ |                
+$$ /  \\__| $$$$$$\\   $$$$$$$\\ $$$$$$$\\   $$$$$$\\  
+$$ |$$$$\\  \\____$$\\ $$  _____|$$  __$$\\  \\____$$\\ 
+$$ |\\_$$ | $$$$$$$ |$$ /      $$ |  $$ | $$$$$$$ |
+$$ |  $$ |$$  __$$ |$$ |      $$ |  $$ |$$  __$$ |
+\\$$$$$$  |\\$$$$$$$ |\\$$$$$$$\\ $$ |  $$ |\\$$$$$$$ |
+ \\______/  \\_______| \\_______|\\__|  \\__| \\_______|
+
+  spend JIMS to have a chance at new characters!"</string>
     <string name="sign_out">Sign out</string>
     <string name="main_main">Main</string>
     <string name="main_roster">Roster</string>
     <string name="main_battle">Battle</string>
     <string name="main_gacha">Gacha</string>
-    <string name="main_shop">Shop</string>
-    <string name="gacha_1">Roll 1 \n 25 Jims</string>
-    <string name="gacha_10">Roll 11 \n 250 Jims</string>
+    <string name="main_shop">Blacksmith</string>
+    <string name="shop_shop">".-.
+{{@}}
+8@8
+STORE
+8@8
+_    )8(    _
+(@)__/8@8\\__(@)
+`~"-=):(=-"~`
+|.|
+|.|
+|'|
+|.|
+|.|
+|'|
+|.|
+|.|
+|'|
+|.|
+|.|
+|'|
+|.|
+|.|
+|'|
+\\ /
+v
+"</string>
+    <string name="shop_inventory">"&lt;&gt;
+.::::.
+@\\\\/W\\/\\/W\\//@
+\\\\/^\\/\\/^\\//
+\\_O_&lt;&gt;_O_/
+____________________
+|&lt;&gt;&lt;&gt;&lt;&gt;  |  |  &lt;&gt;&lt;&gt;&lt;&gt;|
+|&lt;&gt;      |  |      &lt;&gt;|
+|&lt;&gt;      |  |      &lt;&gt;|
+|&lt;&gt;   .--------.   &lt;&gt;|
+|     |   ()   |     |
+|_____| (O\\/O) |_____|
+|     \\   /\\   /     |
+|------\\  \\/  /------|
+|       '.__.'       |
+|        |  |        |
+:        |  |        :
+\\&lt;&gt;     |  |     &lt;&gt;/
+\\&lt;&gt;    |  |    &lt;&gt;/
+\\&lt;&gt;   |  |   &lt;&gt;/
+`\\&lt;&gt; |  | &lt;&gt;/'
+`-.|  |.-`
+'--'
+inventory"</string>
+    <string name="gacha_1">Roll 1\n25 Jims</string>
+    <string name="gacha_10">Roll 11\n250 Jims</string>
     <string name="roster_details">Details</string>
     <string name="battle_mock">Mock battle</string>
     <string name="misc_connecting">Connecting...</string>

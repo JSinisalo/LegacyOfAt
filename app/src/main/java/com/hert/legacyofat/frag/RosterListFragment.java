@@ -1,16 +1,14 @@
 package com.hert.legacyofat.frag;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,44 +20,40 @@ import com.hert.legacyofat.activity.AsyncResponse;
 import com.hert.legacyofat.activity.FragmentResponse;
 import com.hert.legacyofat.activity.MainActivity;
 import com.hert.legacyofat.async.CallBackendTask;
+import com.hert.legacyofat.backend.Chara;
 import com.hert.legacyofat.backend.Guser;
-import com.hert.legacyofat.misc.Debug;
+import com.hert.legacyofat.backend.Team;
+import com.hert.legacyofat.layout.GridAutofitLayoutManager;
 import com.squareup.leakcanary.RefWatcher;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by juhos on 20.3.2018.
+ * Fragment which holds the roster of characters of the user and the roster team fragments.
  */
-
 public class RosterListFragment extends Fragment implements AsyncResponse, RosterListAdapter.ItemClickListener, View.OnClickListener {
     
     private RosterListAdapter adapter;
 
     private static final int NUM_PAGES = 10;
     private TeamPagerAdapter mPagerAdapter;
-    
-    private List<String> data = new ArrayList<>();
 
-    private long dataChanged = 0;
-    
+    private List<String> mGraphic = new ArrayList<>();
+    private List<String> mColor = new ArrayList<>();
+
     private int selectedTeamSlot = 0;
-
-    @Override
-    public void onCreate(Bundle b) {
-
-        super.onCreate(b);
-    }
 
     private String getTeamName(int idx) {
 
         return Guser.getTeams().get(idx).getName();
     }
 
+    /**
+     * On click.
+     *
+     * @param v view
+     */
     public void onClick(View v) {
 
         if(getView() != null) {
@@ -93,7 +87,7 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
             }
 
             c = ((ViewPager)getView().findViewById(R.id.teamPager)).getCurrentItem();
-            ((MainActivity)getActivity()).setTeamName(getTeamName(c));
+            ((MainActivity)getActivity()).setTeamName(getTeamName(c), c);
         }
     }
 
@@ -102,11 +96,11 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_roster_roster, container, false);
-        
-        int numberOfColumns = 5;
 
-        ((RecyclerView)v.findViewById(R.id.rosterList)).setLayoutManager(new GridLayoutManager(this.getContext(), numberOfColumns));
-        adapter = new RosterListAdapter(this.getContext(), data);
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110, getResources().getDisplayMetrics());
+
+        ((RecyclerView)v.findViewById(R.id.rosterList)).setLayoutManager(new GridAutofitLayoutManager(this.getContext(), Math.round(px)));
+        adapter = new RosterListAdapter(this.getContext(), mGraphic, mColor);
         adapter.setClickListener(this);
         ((RecyclerView)v.findViewById(R.id.rosterList)).setAdapter(adapter);
 
@@ -116,6 +110,8 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
 
         ((Button)v.findViewById(R.id.teamLeft)).setOnClickListener(this);
         ((Button)v.findViewById(R.id.teamRight)).setOnClickListener(this);
+
+        ((MainActivity)getActivity()).setTeamName(getTeamName(0), 0);
 
         return v;
     }
@@ -130,64 +126,35 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
         updateData();
     }
 
+    /**
+     * Updates the recyclerview data with relevant info.
+     */
     public void updateData() {
 
-        data = new ArrayList<>();
-        List<JSONObject> charas = Guser.getCharas();
+        mGraphic = new ArrayList<>();
+        mColor = new ArrayList<>();
+        List<Chara> charas = Guser.getCharas();
 
-        for(int i = 0; i < charas.size(); i++) {
+        for (int i = 0; i < charas.size(); i++) {
 
-            try {
-
-                data.add(charas.get(i).getString("name"));
-
-            } catch (JSONException e) {
-
-                e.printStackTrace();
-            }
+            mGraphic.add(charas.get(i).getGraphic());
         }
 
-        adapter.setData(data);
+        for (int i = 0; i < charas.size(); i++) {
+
+            mColor.add(charas.get(i).getColor());
+        }
+
+        adapter.setData(mGraphic, mColor);
         adapter.notifyDataSetChanged();
-
-        /*
-        for(int i = 0; i < 10; i++) {
-
-            try {
-
-                teamNames.add(teams.getJSONObject(i).getString("name"));
-
-                this.teams[i][0] = teams.getJSONObject(i).getInt("char1");
-                this.teams[i][1] = teams.getJSONObject(i).getInt("char2");
-                this.teams[i][2] = teams.getJSONObject(i).getInt("char3");
-                this.teams[i][3] = teams.getJSONObject(i).getInt("char4");
-
-                RosterTeamFragment f = (RosterTeamFragment)mPagerAdapter.getRegisteredFragment(i);
-
-                if(f != null)
-                    f.setSlotTexts(adapter.getItem(this.teams[i][0]),adapter.getItem(this.teams[i][1]),adapter.getItem(this.teams[i][2]),adapter.getItem(this.teams[i][3]));
-
-            } catch (JSONException e) {
-
-                e.printStackTrace();
-            }
-        }
-
-        ((MainActivity)getActivity()).setTeamName(teamNames.get(((ViewPager)v.findViewById(R.id.teamPager)).getCurrentItem()));
-        */
     }
 
     @Override
     public void onItemClick(View view, int position) {
 
-        for(View v : getViews()) {
-
-            v.setBackgroundColor(Color.argb(0, 0, 0, 0));
-        }
-
         if(selectedTeamSlot == 0) {
 
-            view.setBackgroundColor(Color.argb(255, 0, 0, 0));
+            //view.setBackgroundColor(Color.argb(255, 0, 0, 0));
 
             if(((MainActivity)getActivity()).getSelectedChara() == position)
                 ((RosterFragment)getParentFragment()).changePage(0);
@@ -200,11 +167,24 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
         }
     }
 
+    /**
+     * Puts a character to the team slot.
+     *
+     * @param selectedTeamSlot the selected team slot
+     * @param chara            the chara
+     */
     public void putCharaToSlot(int selectedTeamSlot, int chara) {
 
         int c = ((ViewPager)getView().findViewById(R.id.teamPager)).getCurrentItem();
 
-        Guser.getTeams().get(c).setChar(selectedTeamSlot + 1, chara);
+        Team team = Guser.getTeams().get(c);
+
+        if(team.charaExists(chara) != -1) {
+
+            team.setChar(team.charaExists(chara), -1);
+        }
+
+        team.setChar(selectedTeamSlot + 1, chara);
 
         RosterTeamFragment f = (RosterTeamFragment)mPagerAdapter.getRegisteredFragment(c);
 
@@ -217,37 +197,21 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
         ((MainActivity)getActivity()).setSelectedChara(-1);
         this.selectedTeamSlot = 0;
 
-        for(View v : getViews()) {
-
-            v.setBackgroundColor(Color.argb(0, 0, 0, 0));
-        }
-
-        new CallBackendTask(CallBackendTask.POST_TEAM_DATA, this).execute("http://91.155.202.223:7500/api/team", Guser.getToken(), Guser.getTeamString(c));
-    }
-
-    private View getView(int id) {
-
-        return ((RecyclerView)getView().findViewById(R.id.rosterList)).getChildViewHolder(((RecyclerView)getView().findViewById(R.id.rosterList)).getChildAt(id)).itemView;
-    }
-
-    private List<View> getViews() {
-
-        List<View> views = new ArrayList<>();
-
-        for (int childCount = ((RecyclerView)getView().findViewById(R.id.rosterList)).getChildCount(), i = 0; i < childCount; ++i) {
-
-            RecyclerView.ViewHolder holder = ((RecyclerView)getView().findViewById(R.id.rosterList)).getChildViewHolder(((RecyclerView)getView().findViewById(R.id.rosterList)).getChildAt(i));
-
-            views.add(holder.itemView);
-        }
-
-        return views;
+        new CallBackendTask(CallBackendTask.POST_TEAM_DATA, this).execute("api/team", Guser.getToken(), Guser.getTeamString(c));
     }
 
     private class TeamPagerAdapter extends FragmentStatePagerAdapter {
 
+        /**
+         * The Registered fragments.
+         */
         SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
 
+        /**
+         * Instantiates a new Team pager adapter.
+         *
+         * @param fm the fm
+         */
         public TeamPagerAdapter(FragmentManager fm) {
 
             super(fm);
@@ -286,16 +250,22 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
             super.destroyItem(container, position, object);
         }
 
+        /**
+         * Gets registered fragment.
+         *
+         * @param position the position
+         * @return the registered fragment
+         */
         public Fragment getRegisteredFragment(int position) {
             return registeredFragments.get(position);
         }
     }
 
-    public int getSelectedTeamSlot() {
-
-        return selectedTeamSlot;
-    }
-
+    /**
+     * Sets selected team slot.
+     *
+     * @param selectedTeamSlot the selected team slot
+     */
     public void setSelectedTeamSlot(int selectedTeamSlot) {
 
         this.selectedTeamSlot = selectedTeamSlot;
@@ -324,28 +294,5 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
         super.onDestroy();
         RefWatcher refWatcher = LegacyOfAtApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Debug.log("resume");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        Debug.log("att");
-
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        Debug.log("ress");
-
     }
 }

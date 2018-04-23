@@ -15,12 +15,12 @@ import com.hert.legacyofat.activity.AsyncResponse;
 import com.hert.legacyofat.activity.FragmentResponse;
 import com.hert.legacyofat.backend.Guser;
 import com.hert.legacyofat.popup.PopupError;
+import com.hert.legacyofat.popup.PopupYesNo;
 import com.squareup.leakcanary.RefWatcher;
 
 /**
- * Created by juhos on 20.3.2018.
+ * Fragment that holds the gacha view with the rolling buttons and fancy banner.
  */
-
 public class GachaFragment extends Fragment implements AsyncResponse, PopupError.PopupErrorListener, View.OnClickListener {
 
     @Override
@@ -41,6 +41,11 @@ public class GachaFragment extends Fragment implements AsyncResponse, PopupError
         return v;
     }
 
+    /**
+     * On click.
+     *
+     * @param v view
+     */
     public void onClick(View v) {
 
         switch(v.getId()){
@@ -63,6 +68,12 @@ public class GachaFragment extends Fragment implements AsyncResponse, PopupError
         }
     }
 
+    /**
+     * Prompts the user with different popups depending on the jim situation.
+     *
+     * @param times amount of rolls to do
+     * @param jims jims the user has
+     */
     private void attemptRoll(int times, int jims) {
 
         int userJims = Guser.getJims();
@@ -75,8 +86,8 @@ public class GachaFragment extends Fragment implements AsyncResponse, PopupError
 
         } else {
 
-            PopupError.newPopupError("Gacha roll",
-                    "Roll banner for " + jims + " ? \nClick outside the box to dismiss",
+            PopupYesNo.newPopupYesNo("Gacha roll",
+                    "Roll banner for " + jims + " ?",
                     (times>1) ? 2 : 1, false, getChildFragmentManager());
         }
     }
@@ -100,7 +111,7 @@ public class GachaFragment extends Fragment implements AsyncResponse, PopupError
     }
 
     @Override
-    public void onDialogClose(DialogFragment dialog, int id) {
+    public void onDialogClose(DialogFragment dialog, int id, String extra) {
 
     }
 

@@ -16,6 +16,9 @@ import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONException;
 
+/**
+ * Fragment which holds the info on the main screen.
+ */
 public class MainFragment extends Fragment {
 
     @Override
