@@ -85,7 +85,7 @@ public abstract class Action implements ActionPerform {
      * @param target the target charas
      * @return the list of damage values
      */
-    public List<Double> prePerform(Chara source, List<Chara> target) {
+    public List<Double> prePerform(Chara source, List<Chara> target, List<Chara> team) {
 
         List<Double> result = new ArrayList<>();
 
@@ -135,7 +135,7 @@ public abstract class Action implements ActionPerform {
 
             for(int j = 0; j < list.size(); j++) {
 
-                previous += list.get(j).perform(source, target.get(i), previous);
+                previous += list.get(j).perform(source, target.get(i), previous, team);
             }
 
             result.add(previous);

@@ -45,6 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/topHoriz"
         app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
         android:textAlignment="center"
+        android:gravity="center"
         android:text="!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\nNote that if the server has not had any traffic for the past 30 minutes it will have to restart itself.\n\nThis means that this connecting loading screen might take a minute or two.\n\nAfter the server has had traffic for the past 30 minutes it will perform without these issues.\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         android:textSize="16sp"
         android:fontFamily="monospace"

@@ -122,6 +122,12 @@ public class ShopInventoryFragment extends Fragment implements View.OnClickListe
 
                     Item item = Guser.getItems().get(selectedItem);
 
+                    if(((MainActivity)getActivity()).getSelectedChara() == -1) {
+
+                        ((RosterBridgeFragment)getParentFragment()).changePage(0);
+                        return;
+                    }
+
                     switch(((RosterBridgeFragment)getParentFragment()).getCurrentItem()) {
 
                         case RosterBridgeFragment.WEAPON:

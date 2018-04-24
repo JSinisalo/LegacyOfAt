@@ -236,6 +236,7 @@
                 android:layout_height="wrap_content"
                 android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome!\n"
                 android:fontFamily="monospace"
+                android:overScrollMode="never"
                 android:textColor="#FFFFFF"
                 android:textAlignment="center"
                 android:gravity="bottom"

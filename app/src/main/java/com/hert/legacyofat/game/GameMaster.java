@@ -200,6 +200,48 @@ public class GameMaster {
     }
 
     /**
+     * Gets all pcharas into a list.
+     *
+     * @return the list of charas
+     */
+    private List<Chara> getPcharas() {
+
+        List<Chara> list = new ArrayList<>();
+
+        if(p1 != null)
+            list.add(p1);
+        if(p2 != null)
+            list.add(p2);
+        if(p3 != null)
+            list.add(p3);
+        if(p4 != null)
+            list.add(p4);
+
+        return list;
+    }
+
+    /**
+     * Gets all echaras into a list.
+     *
+     * @return the list of charas
+     */
+    private List<Chara> getEcharas() {
+
+        List<Chara> list = new ArrayList<>();
+
+        if(e1 != null)
+            list.add(e1);
+        if(e2 != null)
+            list.add(e2);
+        if(e3 != null)
+            list.add(e3);
+        if(e4 != null)
+            list.add(e4);
+
+        return list;
+    }
+
+    /**
      * Advances the turn.
      * <p>
      * First it sorts all characters based on their speed + some randomness
@@ -324,7 +366,14 @@ public class GameMaster {
                 }
             }
 
-            damage = c.getAction(c.getSelectedAction()).prePerform(c, target);
+            List<Chara> team;
+
+            if(c.isEnemy())
+                team = getEcharas();
+            else
+                team = getPcharas();
+
+            damage = c.getAction(c.getSelectedAction()).prePerform(c, target, team);
 
             for(int j = 0; j < damage.size(); j++) {
 

@@ -46,7 +46,10 @@ public class RosterListFragment extends Fragment implements AsyncResponse, Roste
 
     private String getTeamName(int idx) {
 
-        return Guser.getTeams().get(idx).getName();
+        if(Guser.getTeams().size() > 0)
+            return Guser.getTeams().get(idx).getName();
+        else
+            return "??";
     }
 
     /**

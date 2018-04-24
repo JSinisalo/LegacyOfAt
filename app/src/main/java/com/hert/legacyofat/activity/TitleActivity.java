@@ -363,6 +363,9 @@ public class TitleActivity extends AppCompatActivity implements AsyncResponse, F
 
             case 8:
 
+                if(extra.equals("") || extra == null)
+                    extra = "unknown";
+
                 new CallBackendTask(CallBackendTask.POST_NAME, this).execute("api/name", mGoogleSignInAccount.getIdToken(), extra);
                 break;
         }

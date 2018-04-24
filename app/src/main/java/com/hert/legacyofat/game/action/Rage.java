@@ -4,13 +4,15 @@ import com.hert.legacyofat.backend.Action;
 import com.hert.legacyofat.backend.Chara;
 import com.hert.legacyofat.misc.Random;
 
+import java.util.List;
+
 /**
  * Class for the rage action. Big damage but self stun.
  */
 public class Rage extends Action {
 
     @Override
-    public double perform(Chara source, Chara target, double previous) {
+    public double perform(Chara source, Chara target, double previous, List<Chara> team) {
 
         source.setStunned(true);
 

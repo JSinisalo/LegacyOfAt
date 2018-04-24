@@ -372,6 +372,7 @@ public abstract class Guser {
             c.setMaxLevel(o.getInt("maxLevel"));
 
             c.setXp(o.getDouble("xp"));
+            c.setMaxHealth(o.getDouble("health"));
             c.setHealth(o.getDouble("health"));
             c.setSpecial(o.getDouble("special"));
             c.setAttack(o.getDouble("attack"));

@@ -87,4 +87,67 @@ inventory"</string>
     <string name="roster_details">Details</string>
     <string name="battle_mock">Mock battle</string>
     <string name="misc_connecting">Connecting...</string>
+    <string name="main_text">"
+__        _______ _     ____ ___  __  __ _____
+\\ \\      / | ____| |   / ___/ _ \\|  \\/  | ____|
+ \\ \\ /\\ / /|  _| | |  | |  | | | | |\\/| |  _|
+  \\ V  V / | |___| |__| |__| |_| | |  | | |___
+   \\_/\\_/  |_____|_____\\____\\___/|_|  |_|_____|
+
+
+LEGACYOFAT is a simple, short, yet enjoyable experience, but a few things might need some explaining...
+
+
+HOW TO NAVIGATE THE UI
+
+To see more of this main screen simply drag the screen up and down
+
+To get to different pages in the menu simply click the buttons below
+
+In the ROSTER menu you can see 4 boxes at the top and two arrow buttons, this is the team selection and assignment section
+By clicking on the arrows you can change the current team, and by clicking on a slot in the team and then some other slot in either the team or the roster the character will change
+The boxes below are your characters, you will only start with one character but you can acquire more by rolling them via the GACHA menu
+Clicking on a character and then on a team slot will assign the character to the team slot
+DOUBLE CLICKING on a CHARACTER will allow you to see details of the character such as its stats and items...
+
+In the character detail menu (accessed by double clicking a character in the roster menu) you can see a big image of your character and its stats
+The 3 boxes with red Xs on them are the character item slots, ARMOR, WEAPON and TRINKET in descending order
+By clicking on an item slot you will be taken to your inventory screen, here you can check your items and assign them to the character
+If you clicked on the first slot (armor) and then click on an item which is an armor and click select your character will now wear the item
+Items can be acquired from the SHOP menu or the GACHA menu
+
+In the BATTLE menu you will see a list of battles you can partake in
+Each battle has a name and 4 slots next to the name which represent what enemies are in that stage
+If the name is red it means you havent cleared the battle yet, a green name means you have cleared it already
+You can clear a stage as many times as you want
+
+In the GACHA menu you can try your chance and spend JIMS to roll for new items and characters
+Better characters have lower chances of appearing and you will most likely get a lot of duplicate items in your journey
+JIMS can be earned from battles, same with GOLD
+
+In the BLACKSMITH menu you can either view your inventory or view the SHOP
+In shop you can buy new items with the gold youve earned
+
+Pressing the BACK button on your device will bring you back to this screen
+
+
+HOW TO BATTLE
+
+Combat in LEGACYOFAT is turn based
+Your team and the enemy team is laid out on a 2x2 grid, with your team on the left and enemy team on the right
+To advance a turn simply press the center which has the battle information text in it
+Before advancing a turn you might want to change the action your character does this turn
+Clicking on a character in the bottom 4 slots bar will list you with the characters actions
+Clicking on an action will tell you what the action does in the battle information text box
+Double clicking on an action will select that action and switch back to the team slot bar
+Some actions have cooldowns which mean they cant be used every turn
+Some actions can stun your or enemy characters which means they cant act for the turn
+The battle is won or lost depending on which teams characters last the longest
+You can bail out of a battle by pressing the BACK button on your device, but you will lose all progress
+
+
+BEGINNER TIPS
+
+You start with 100 JIMS and 1000 GOLD, go spend them and equip your team and start battling!
+        "</string>
 </resources>

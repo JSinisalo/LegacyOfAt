@@ -18,8 +18,8 @@
         android:textAlignment="center"
         android:text="test"/>
 
-    <EditText
-        android:id="@+id/editText"
+    <com.hert.legacyofat.layout.CustomEditText
+        android:tag="thisisstupid"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textColor="#FFFFFF"
@@ -33,10 +33,10 @@
         android:focusableInTouchMode="true"
         android:gravity="center"
         android:maxLength="10"
-        android:hint="enter a name (max 10 characters)"
+        android:hint="enter a name (max 10)"
         android:textColorHint="#AAAAAA" >
         <requestFocus/>
-    </EditText>
+    </com.hert.legacyofat.layout.CustomEditText>
 
     <Button
         android:id="@+id/okButton"

@@ -11,10 +11,7 @@ import android.widget.TextView;
 
 import com.hert.legacyofat.LegacyOfAtApplication;
 import com.hert.legacyofat.R;
-import com.hert.legacyofat.backend.Guser;
 import com.squareup.leakcanary.RefWatcher;
-
-import org.json.JSONException;
 
 /**
  * Fragment which holds the info on the main screen.
@@ -33,12 +30,7 @@ public class MainFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-        try {
-            ((TextView)v.findViewById(R.id.mainFragmentTest)).setText(Guser.getJson().toString(2));
-            ((TextView)v.findViewById(R.id.mainFragmentTest)).setMovementMethod(new ScrollingMovementMethod());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        ((TextView)v.findViewById(R.id.mainFragmentTest)).setMovementMethod(new ScrollingMovementMethod());
 
         return v;
     }

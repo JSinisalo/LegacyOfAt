@@ -65,25 +65,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
         />
 
-    <Button
-        android:id="@+id/signInButton"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/leftVert"
-        app:layout_constraintRight_toLeftOf="@+id/rightVert"
-        app:layout_constraintTop_toTopOf="@+id/topHoriz"
-        app:layout_constraintBottom_toTopOf="@+id/bottomHoriz"
-        android:text="GOOGLE CRAWLER "
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:onClick="onCrawl"
-        android:visibility="invisible"/>
-
     <TextView
         android:id="@+id/titleConnecting"
         android:layout_width="0dp"

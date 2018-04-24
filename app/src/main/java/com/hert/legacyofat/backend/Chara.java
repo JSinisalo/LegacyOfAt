@@ -201,6 +201,9 @@ public class Chara {
     public void setHealth(double health) {
 
         this.health = health;
+
+        if(this.health > this.maxHealth)
+            this.health = this.maxHealth;
     }
 
     /**

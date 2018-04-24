@@ -10,10 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.hert.legacyofat.R;
+import com.hert.legacyofat.layout.CustomEditText;
 
 /**
  * Popup that has an edit text in it, puts the value of the edittext into the extras of onCloseDialog.
@@ -23,7 +23,7 @@ public class PopupEditText extends DialogFragment {
     private PopupError.PopupErrorListener mListener;
     private String title;
     private String content;
-    private EditText edit;
+    private CustomEditText edit;
     private int id;
 
     /**
@@ -79,7 +79,11 @@ public class PopupEditText extends DialogFragment {
         builder.setView(dialogView);
 
         TextView title = (TextView) dialogView.findViewById(R.id.errorTextTitle);
-        edit = (EditText) dialogView.findViewById(R.id.editText);
+
+        //https://github.com/square/leakcanary/issues/297
+        edit = (CustomEditText) dialogView.findViewWithTag("thisisstupid");
+
+
         Button ok = (Button) dialogView.findViewById(R.id.okButton);
 
         title.setText(this.title);
